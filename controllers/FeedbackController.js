@@ -32,14 +32,7 @@ const controller = {
             as: "commentCount",
           },
         },
-        {
-          $addFields: {
-            voteCount: { $size: "$vote" },
-            voted: { $in: [objectID(req.user._id), "$vote"] },
-            commentCount: { $size: "$commentCount" },
-          },
-        },
-        { $project: { vote: 0 } },
+        { $addFields: { commentCount: { $size: "$commentCount" } } },
       ]);
       return res.json({ items });
     } catch (error) {
@@ -62,14 +55,7 @@ const controller = {
             as: "commentCount",
           },
         },
-        {
-          $addFields: {
-            voteCount: { $size: "$vote" },
-            voted: { $in: [objectID(req?.user?._id), "$vote"] },
-            commentCount: { $size: "$commentCount" },
-          },
-        },
-        { $project: { vote: 0 } },
+        { $addFields: { commentCount: { $size: "$commentCount" } } },
       ]);
       return res.json({ items });
     } catch (error) {
@@ -89,14 +75,14 @@ const controller = {
   },
   async toggleFeedbackVote(req, res) {
     try {
-      const { _id } = req.body;
-      const { _id: userID } = req.user;
-
-      const feedback = await Feedback.findById(_id).select("vote");
-      const vote = feedback.vote;
-      const index = vote.indexOf(userID);
-      index === -1 ? vote.push(userID) : vote.splice(index, 1);
-      await Feedback.findByIdAndUpdate(_id, { vote });
+      const { _id, voted } = req.body;
+      const feedback = await Feedback.findOne({ _id });
+      if (!(feedback.voteCount === 0 && !voted)) {
+        await Feedback.findOneAndUpdate(
+          { _id },
+          { $inc: { voteCount: voted ? 1 : -1 } }
+        );
+      }
 
       return res.json({ success: true });
     } catch (error) {

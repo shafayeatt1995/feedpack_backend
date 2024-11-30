@@ -7,7 +7,7 @@ const FeedbackSchema = new Schema(
     boardID: { type: Schema.Types.ObjectId, ref: "Board" },
     title: { type: String, required: true },
     description: { type: String, required: true },
-    vote: { type: [Schema.Types.ObjectId], default: [], select: false },
+    voteCount: { type: Number, default: 0, min: 0 },
     status: {
       type: String,
       default: "none",

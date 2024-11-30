@@ -5,7 +5,6 @@ const {
   createFeedback,
   getFeedback,
   updateFeedbackStatus,
-  toggleFeedbackVote,
   deleteFeedback,
 } = require("../../controllers/FeedbackController");
 const router = express.Router();
@@ -13,7 +12,6 @@ const router = express.Router();
 router.get("/", getFeedback);
 router.post("/", feedbackValidation, validation, createFeedback);
 router.post("/status", updateFeedbackStatus);
-router.post("/vote", toggleFeedbackVote);
 router.delete("/", deleteFeedback);
 
 module.exports = router;
