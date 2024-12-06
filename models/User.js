@@ -17,6 +17,11 @@ const UserSchema = new Schema(
       enum: ["admin", "user"],
       default: "user",
     },
+    subscription: {
+      type: String,
+      enum: ["None", "Active", "Expired", "Canceled"],
+      default: "None",
+    },
     expDate: { type: Date, default: addDate(-1), select: false },
   },
   {

@@ -163,6 +163,8 @@ const utils = {
     const d2 = new Date(date2);
     return d1.getTime() >= d2.getTime();
   },
+
+  isDev: process.env.NODE_ENV === "development",
 };
 
 module.exports = utils;

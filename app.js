@@ -9,7 +9,6 @@ const port = parseInt(process.env.PORT || "8000", 10);
 require("./config/mongo");
 
 app.use(cors());
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
@@ -25,6 +24,8 @@ app.use(
   })
 );
 
+app.use("/webhooks", require("./routes/webhooks"));
+app.use(express.json());
 app.get("/", (req, res) => {
   res.json({ message: "Hello world" });
 });

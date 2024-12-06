@@ -85,7 +85,6 @@ const controller = {
             email,
             password: id + process.env.SOCIAL_LOGIN_PASS,
             avatar: picture,
-            w,
           });
         }
         const credential = { email, id, provider, key: randomKey(20) };
