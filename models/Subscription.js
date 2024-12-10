@@ -8,6 +8,7 @@ const SubscriptionSchema = new Schema(
     package: { type: String, required: true },
     amount: { type: Number, required: true },
     refunded: { type: Boolean, default: false },
+    paymentDetails: { type: Object },
   },
   {
     strict: true,

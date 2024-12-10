@@ -143,7 +143,8 @@ const utils = {
   },
 
   addDate(count, date = new Date()) {
-    return new Date(date.getTime() + count * 24 * 60 * 60 * 1000);
+    const d = new Date(date);
+    return new Date(d.getTime() + count * 24 * 60 * 60 * 1000);
   },
 
   startDate(date = new Date()) {
